@@ -1,13 +1,16 @@
 /* Carpet Studios — shared styles. Mobile first; one breakpoint at 56rem. */
 
 :root {
-  /* Studio shell */
-  --cream: #fbf7ef;
-  --cream-deep: #f4ecdd;
-  --ink: #23201d;
-  --ink-soft: #5b544c;
-  --brand: #ee3224;      /* sampled from the Carpet Studios logos */
-  --brand-ink: #c42414;  /* same red, darkened so small text passes WCAG AA on cream */
+  /* Studio shell: colors from the Carpet Studios logos (Tailwind slate + blue) */
+  --bg: #0f172a;          /* slate 900, the background the logos are drawn for */
+  --bg-deep: #020617;     /* slate 950 */
+  --surface: #1e293b;     /* slate 800 */
+  --line: rgb(148 163 184 / 0.18);
+  --text: #e2e8f0;        /* slate 200, the logo's "S" */
+  --text-soft: #94a3b8;   /* slate 400, the logo's "STUDIOS" */
+  --brand: #2563eb;       /* blue 600, the logo's "C" */
+  --brand-hover: #1d4ed8; /* blue 700 */
+  --link: #60a5fa;        /* blue 400: the brand blue is too dark for small text on slate */
 
   /* Junk Flight */
   --jf-blue: #2f86f6;
@@ -22,7 +25,7 @@
   --gutter: 1rem;
   --max: 70rem;
 
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 *,
@@ -41,8 +44,8 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--cream);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--text);
   font: 1.0625rem/1.6 var(--font);
 }
 
@@ -57,7 +60,7 @@ img {
 }
 
 a {
-  color: var(--brand-ink);
+  color: var(--link);
   text-underline-offset: 0.18em;
   text-decoration-thickness: 0.08em;
 }
@@ -67,7 +70,7 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 3px solid var(--ink);
+  outline: 3px solid var(--link);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -85,8 +88,8 @@ a:hover {
   top: -4rem;
   z-index: 10;
   padding: 0.6rem 1rem;
-  background: var(--ink);
-  color: var(--cream);
+  background: var(--text);
+  color: var(--bg);
   font-weight: 700;
   border-radius: 0 0 8px 8px;
 }
@@ -98,8 +101,8 @@ a:hover {
 /* Header ------------------------------------------------------------- */
 
 .site-header {
-  background: var(--cream);
-  border-bottom: 1px solid rgb(35 32 29 / 0.08);
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
 }
 
 .site-header .wrap {
@@ -130,14 +133,14 @@ a:hover {
 }
 
 .site-nav a {
-  color: var(--ink);
+  color: var(--text);
   font-weight: 600;
   text-decoration: none;
 }
 
 .site-nav a:hover,
 .site-nav a[aria-current="page"] {
-  color: var(--brand-ink);
+  color: var(--link);
   text-decoration: underline;
 }
 
@@ -146,7 +149,7 @@ a:hover {
 .site-footer {
   margin-top: 3rem;
   padding-block: 2rem 2.5rem;
-  background: var(--cream-deep);
+  background: var(--bg-deep);
   border-top: 4px solid var(--brand);
   font-size: 0.95rem;
 }
@@ -157,7 +160,7 @@ a:hover {
 }
 
 .site-footer .site-logo img {
-  height: 3.25rem;
+  height: 6.5rem;
 }
 
 .footer-links {
@@ -176,7 +179,7 @@ a:hover {
 
 .copyright {
   margin: 0;
-  color: var(--ink-soft);
+  color: var(--text-soft);
 }
 
 /* Studio button ------------------------------------------------------ */
@@ -189,7 +192,7 @@ a:hover {
   padding: 0.7rem 1.4rem;
   border-radius: 14px;
   font-weight: 700;
-  font-size: 1.2rem; /* large text: white on the exact brand red needs 3:1 */
+  font-size: 1.1rem;
   line-height: 1.2;
   text-align: center;
   text-decoration: none;
@@ -202,7 +205,7 @@ a:hover {
 }
 
 .btn-studio:hover {
-  background: var(--brand-ink);
+  background: var(--brand-hover);
 }
 
 /* Junk Flight -------------------------------------------------------- */
@@ -437,7 +440,7 @@ a:hover {
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--brand-ink);
+  color: var(--link);
 }
 
 .page h1 {
@@ -468,19 +471,19 @@ a:hover {
 
 .lede {
   font-size: 1.2rem;
-  color: var(--ink-soft);
+  color: var(--text-soft);
 }
 
 .updated {
-  color: var(--ink-soft);
+  color: var(--text-soft);
   font-size: 0.95rem;
 }
 
 .contact-card {
   margin: 1.75rem 0 0.5rem;
   padding: 1.4rem;
-  background: #fff;
-  border: 1px solid rgb(35 32 29 / 0.1);
+  background: var(--surface);
+  border: 1px solid var(--line);
   border-left: 6px solid var(--brand);
   border-radius: 14px;
 }

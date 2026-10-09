@@ -8,8 +8,8 @@ privacy/index.html    Privacy policy (Junk Flight + this site)
 support/index.html    Contact and FAQ
 404.html              Not-found page (GitHub Pages serves it automatically)
 assets/css/site.css   The only stylesheet
-assets/brand/         Studio wordmark (transparent PNG)
-assets/icons/         Favicons and Apple touch icon
+assets/brand/         Studio logo (stacked) and header lockup (SVG)
+assets/icons/         Favicons (SVG + PNG) and Apple touch icon
 assets/img/           Key art, screenshots, app icon (WebP), share image (JPEG)
 favicon.ico           Fallback favicon for custom-domain root
 .nojekyll             Tells GitHub Pages to serve files as-is
@@ -63,5 +63,5 @@ The main pages use relative paths and work at any URL. `404.html` uses root path
 
 - **No third-party requests.** Every page sets a Content Security Policy that only allows its own images and stylesheet, so an accidental external font, script, or embed will be blocked. That matches the privacy policy.
 - **No JavaScript.** No page runs any script, and the CSP forbids it. If you ever add one, allow it in that page's CSP.
-- **Brand colors.** The studio red `#EE3224` is sampled from the logos. Small text links use a darker shade, `#C42414`, so they meet WCAG AA contrast on the cream background. Junk Flight uses ocean blue `#2F86F6` with navy `#16356A`.
+- **Brand colors.** The studio shell uses the logo colors: slate `#0F172A` background, slate `#E2E8F0` and `#94A3B8` text, and blue `#2563EB` for buttons and accents. The logos are drawn for that dark background, so don't put them on light colors. Small text links use a lighter blue, `#60A5FA`, because the brand blue is below WCAG AA contrast on slate. Junk Flight keeps its own look: ocean blue `#2F86F6`, navy `#16356A`, and cream.
 - **No secrets.** The site needs no keys or credentials. Keep it that way.
