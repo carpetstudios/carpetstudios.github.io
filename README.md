@@ -25,18 +25,15 @@ python3 -m http.server 8000
 
 Then open <http://localhost:8000/>. Use a local server rather than opening the files directly: the folder links (`privacy/`, `support/`) and the Content Security Policy expect to run over HTTP.
 
-## Before launch: replace the placeholders
+## Contact and beta links
 
-| Placeholder | Where | Replace with |
-| --- | --- | --- |
-| `EMAIL-PLACEHOLDER@example.com` | Footers, privacy, support | The contact email |
-| `https://testflight.apple.com/join/TESTFLIGHT-PLACEHOLDER` | Home, support | The public TestFlight link |
-
-Find them all with:
+The contact email (`carpetstudioshq@gmail.com`) and the TestFlight link (`https://testflight.apple.com/join/bAjfNBZ2`) appear on several pages. To change one, replace it everywhere:
 
 ```sh
-grep -rn PLACEHOLDER --include='*.html' .
+grep -rln 'carpetstudioshq@gmail.com' --include='*.html' .
 ```
+
+## Share image
 
 The share-image tags (`og:image`, `twitter:image`) use relative paths so the site works on any URL. Some services, Facebook in particular, only accept absolute URLs. Once the final address is known, you can make those tags absolute, for example `https://carpetstudios.example/assets/img/og-image.jpg`.
 
