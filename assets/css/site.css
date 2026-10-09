@@ -1,0 +1,599 @@
+/* Carpet Studios — shared styles. Mobile first; one breakpoint at 56rem. */
+
+:root {
+  /* Studio shell */
+  --cream: #fbf7ef;
+  --cream-deep: #f4ecdd;
+  --ink: #23201d;
+  --ink-soft: #5b544c;
+  --brand: #ee3224;      /* sampled from the Carpet Studios logos */
+  --brand-ink: #c42414;  /* same red, darkened so small text passes WCAG AA on cream */
+
+  /* Junk Flight */
+  --jf-blue: #2f86f6;
+  --jf-blue-ink: #1d62c6;
+  --jf-navy: #16356a;
+  --jf-cream: #fff4d6;
+  --jf-sky: #eaf3ff;
+
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-round: ui-rounded, "SF Pro Rounded", "Arial Rounded MT Bold", system-ui, -apple-system, sans-serif;
+
+  --gutter: 1rem;
+  --max: 70rem;
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--cream);
+  color: var(--ink);
+  font: 1.0625rem/1.6 var(--font);
+}
+
+main {
+  flex: 1;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--brand-ink);
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.08em;
+}
+
+a:hover {
+  text-decoration-thickness: 0.14em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -4rem;
+  z-index: 10;
+  padding: 0.6rem 1rem;
+  background: var(--ink);
+  color: var(--cream);
+  font-weight: 700;
+  border-radius: 0 0 8px 8px;
+}
+
+.skip-link:focus {
+  top: 0;
+}
+
+/* Header ------------------------------------------------------------- */
+
+.site-header {
+  background: var(--cream);
+  border-bottom: 1px solid rgb(35 32 29 / 0.08);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: 4rem;
+}
+
+.site-logo {
+  display: block;
+  flex-shrink: 0;
+  border-radius: 6px;
+}
+
+.site-logo img {
+  width: auto;
+  height: 2.5rem;
+}
+
+.site-nav ul {
+  display: flex;
+  gap: 1.1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-nav a {
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.site-nav a:hover,
+.site-nav a[aria-current="page"] {
+  color: var(--brand-ink);
+  text-decoration: underline;
+}
+
+/* Footer ------------------------------------------------------------- */
+
+.site-footer {
+  margin-top: 3rem;
+  padding-block: 2rem 2.5rem;
+  background: var(--cream-deep);
+  border-top: 4px solid var(--brand);
+  font-size: 0.95rem;
+}
+
+.site-footer .wrap {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.site-footer .site-logo img {
+  height: 3.25rem;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.4rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links a {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.copyright {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+/* Studio button ------------------------------------------------------ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.25rem;
+  padding: 0.7rem 1.4rem;
+  border-radius: 14px;
+  font-weight: 700;
+  font-size: 1.2rem; /* large text: white on the exact brand red needs 3:1 */
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+.btn-studio {
+  background: var(--brand);
+  color: #fff;
+}
+
+.btn-studio:hover {
+  background: var(--brand-ink);
+}
+
+/* Junk Flight -------------------------------------------------------- */
+
+.jf {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(9rem 4rem at 88% 6%, rgb(255 255 255 / 0.9), transparent 70%),
+    radial-gradient(12rem 5rem at 6% 62%, rgb(255 255 255 / 0.75), transparent 70%),
+    radial-gradient(10rem 4rem at 94% 82%, rgb(255 255 255 / 0.7), transparent 70%),
+    linear-gradient(180deg, #d9eaff 0%, var(--jf-sky) 45%, #f4f8ff 100%);
+  color: var(--jf-navy);
+}
+
+.jf a:not([class]) {
+  color: var(--jf-blue-ink);
+}
+
+.jf :focus-visible {
+  outline-color: var(--jf-navy);
+}
+
+.jf-art {
+  margin: 0;
+}
+
+.jf-art img {
+  width: 100%;
+  height: clamp(13rem, 40vh, 28rem);
+  height: clamp(13rem, 40svh, 28rem);
+  object-fit: cover;
+  object-position: 50% 40%;
+}
+
+.jf-intro {
+  position: relative;
+  margin-top: -1.5rem;
+  padding: 1.6rem var(--gutter) 0;
+  background: var(--jf-sky);
+  border-radius: 1.5rem 1.5rem 0 0;
+}
+
+.jf-eyebrow {
+  margin: 0 0 0.6rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--jf-blue-ink);
+}
+
+.jf-title-row {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+.jf-icon {
+  width: 4rem;
+  height: 4rem;
+  flex-shrink: 0;
+  border-radius: 22%;
+  border: 3px solid var(--jf-cream);
+  box-shadow: 0 5px 0 var(--jf-navy);
+  transform: rotate(6deg);
+}
+
+.jf-title {
+  display: inline-block;
+  margin: 0;
+  padding: 0.18em 0.42em 0.26em;
+  background: var(--jf-blue);
+  color: var(--jf-cream);
+  font: 900 clamp(1.8rem, 8.6vw, 3.6rem)/1 var(--font-round);
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-shadow:
+    0 0.06em 0 var(--jf-navy),
+    0.03em 0.1em 0 var(--jf-navy),
+    0 0.12em 0 var(--jf-navy);
+  border-radius: 0.35em;
+  box-shadow: 0 6px 0 var(--jf-navy);
+  transform: rotate(-3deg);
+}
+
+.jf-pitch {
+  margin: 1.4rem 0 1.1rem;
+  font: 800 1.3rem/1.3 var(--font-round);
+  color: var(--jf-navy);
+}
+
+.jf-cta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8rem 1.2rem;
+}
+
+.btn-jf {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 3.4rem;
+  padding: 0.7rem 1.5rem;
+  background: var(--jf-blue);
+  color: #fff;
+  font: 800 1.2rem/1.2 var(--font-round); /* large text: white on #2F86F6 needs 3:1 */
+  text-align: center;
+  text-decoration: none;
+  border-radius: 1rem;
+  box-shadow: 0 5px 0 var(--jf-navy);
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.btn-jf:hover {
+  transform: translateY(-2px) rotate(-1deg);
+  box-shadow: 0 7px 0 var(--jf-navy);
+}
+
+.btn-jf:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 var(--jf-navy);
+}
+
+.jf-note {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.jf-note strong {
+  display: inline-block;
+  margin-right: 0.3rem;
+  padding: 0.1rem 0.55rem;
+  background: var(--jf-navy);
+  color: var(--jf-cream);
+  border-radius: 999px;
+  font-size: 0.85rem;
+}
+
+.jf-desc {
+  max-width: 36rem;
+  margin: 1.6rem 0 1rem;
+}
+
+.jf-facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jf-facts li {
+  padding: 0.3rem 0.8rem;
+  background: #fff;
+  border: 2px solid #c9defb;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.jf-facts li:nth-child(odd) {
+  transform: rotate(-1.2deg);
+}
+
+.jf-facts li:nth-child(even) {
+  transform: rotate(1deg);
+}
+
+.jf-shots {
+  padding: 2.5rem var(--gutter) 2.75rem;
+}
+
+.jf-shots h2 {
+  margin: 0 0 1.25rem;
+  font: 900 1.6rem/1.2 var(--font-round);
+  color: var(--jf-navy);
+}
+
+.jf-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.jf-gallery figure {
+  margin: 0;
+}
+
+.jf-gallery img {
+  width: 100%;
+  aspect-ratio: 1320 / 2868;
+  object-fit: cover;
+  border: 5px solid var(--jf-navy);
+  border-radius: 1.4rem;
+  background: var(--jf-navy);
+  box-shadow: 0 10px 24px rgb(22 53 106 / 0.18);
+}
+
+.jf-gallery li:nth-child(odd) img {
+  transform: rotate(-1.5deg);
+}
+
+.jf-gallery li:nth-child(even) img {
+  transform: rotate(1.5deg);
+}
+
+.jf-gallery figcaption {
+  margin-top: 0.7rem;
+  font: 800 1rem/1.3 var(--font-round);
+  text-align: center;
+}
+
+/* Text pages (privacy, support, 404) --------------------------------- */
+
+.page {
+  max-width: 42rem;
+  padding-block: 2.5rem 1rem;
+}
+
+.page-eyebrow {
+  margin: 0 0 0.4rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--brand-ink);
+}
+
+.page h1 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 7vw, 2.75rem);
+  line-height: 1.15;
+}
+
+.page h2 {
+  margin: 2.25rem 0 0.5rem;
+  font-size: 1.35rem;
+  line-height: 1.3;
+}
+
+.page h3 {
+  margin: 1.5rem 0 0.35rem;
+  font-size: 1.1rem;
+}
+
+.page p,
+.page ul {
+  margin: 0 0 1rem;
+}
+
+.page li + li {
+  margin-top: 0.35rem;
+}
+
+.lede {
+  font-size: 1.2rem;
+  color: var(--ink-soft);
+}
+
+.updated {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+}
+
+.contact-card {
+  margin: 1.75rem 0 0.5rem;
+  padding: 1.4rem;
+  background: #fff;
+  border: 1px solid rgb(35 32 29 / 0.1);
+  border-left: 6px solid var(--brand);
+  border-radius: 14px;
+}
+
+.contact-card p:last-child {
+  margin-bottom: 0;
+}
+
+/* Wider screens ------------------------------------------------------ */
+
+@media (min-width: 56rem) {
+  :root {
+    --gutter: 2rem;
+  }
+
+  .site-header .wrap {
+    min-height: 5rem;
+  }
+
+  .site-logo img {
+    height: 3rem;
+  }
+
+  .site-nav ul {
+    gap: 1.75rem;
+  }
+
+  .jf {
+    width: calc(100% - 2 * var(--gutter));
+    max-width: calc(var(--max) - 2 * var(--gutter));
+    margin: 2.5rem auto 0;
+    border-radius: 2rem;
+    box-shadow: 0 0 0 1px rgb(22 53 106 / 0.06);
+  }
+
+  .jf-hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 3.5rem;
+    padding: 3.5rem 4rem 2rem;
+  }
+
+  .jf-art {
+    order: 2;
+  }
+
+  .jf-art img {
+    width: auto;
+    height: min(38rem, 76vh);
+    aspect-ratio: 1000 / 2167;
+    object-position: 50% 50%;
+    border: 10px solid var(--jf-navy);
+    border-radius: 2.6rem;
+    box-shadow: 0 22px 44px rgb(22 53 106 / 0.28);
+    transform: rotate(3deg);
+  }
+
+  .jf-intro {
+    margin: 0;
+    padding: 0;
+    background: none;
+  }
+
+  .jf-icon {
+    width: 5.5rem;
+    height: 5.5rem;
+  }
+
+  .jf-pitch {
+    font-size: 1.6rem;
+    max-width: 30rem;
+  }
+
+  .jf-desc {
+    font-size: 1.1rem;
+  }
+
+  .jf-shots {
+    padding: 2rem 4rem 4rem;
+  }
+
+  .jf-gallery {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2rem;
+  }
+
+  .jf-gallery li:nth-child(even) {
+    margin-top: 2rem;
+  }
+
+  .site-footer .wrap {
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 3rem;
+  }
+
+  .site-footer .site-logo {
+    grid-row: span 2;
+  }
+
+  .site-footer .copyright {
+    grid-column: 2;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-jf {
+    transition: none;
+  }
+
+  .btn-jf:hover,
+  .btn-jf:active {
+    transform: none;
+  }
+}
