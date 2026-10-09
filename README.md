@@ -46,7 +46,7 @@ The site is published from the `carpetstudios` GitHub organization, so it lives 
 3. Push this repo to it:
 
    ```sh
-   git remote add origin git@github.com:carpetstudios/carpetstudios.github.io.git
+   git remote add origin https://github.com/carpetstudios/carpetstudios.github.io.git
    git push -u origin main
    ```
 
