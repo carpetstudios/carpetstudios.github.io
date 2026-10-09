@@ -35,7 +35,11 @@ grep -rln 'carpetstudioshq@gmail.com' --include='*.html' .
 
 ## Share image
 
-The share-image tags (`og:image`, `twitter:image`) use relative paths so the site works on any URL. Some services, Facebook in particular, only accept absolute URLs. Once the final address is known, you can make those tags absolute, for example `https://carpetstudios.github.io/assets/img/og-image.jpg`.
+The `og:url`, `og:image`, and `twitter:image` tags use full `https://carpetstudios.github.io/...` URLs, because some services, Facebook in particular, ignore relative ones. If you move to a custom domain, update them:
+
+```sh
+grep -rn 'carpetstudios.github.io' --include='*.html' .
+```
 
 ## Deploy on GitHub Pages
 
