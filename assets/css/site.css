@@ -1,31 +1,38 @@
-/* Carpet Studios — shared styles. Mobile first; one breakpoint at 56rem. */
+/* Carpet Studios — shared styles. Phone first; one breakpoint at 56rem.
+   Pages use Junk Flight's look (sky, toy buttons, cream cards, ocean blue).
+   The studio's own colors (slate and blue, from its logos) appear only in
+   the header and footer. */
 
 :root {
-  /* Studio shell: colors from the Carpet Studios logos (Tailwind slate + blue) */
-  --bg: #0f172a;          /* slate 900, the background the logos are drawn for */
-  --bg-deep: #020617;     /* slate 950 */
-  --surface: #1e293b;     /* slate 800 */
-  --line: rgb(148 163 184 / 0.18);
-  --text: #e2e8f0;        /* slate 200, the logo's "S" */
-  --text-soft: #94a3b8;   /* slate 400, the logo's "STUDIOS" */
-  --brand: #2563eb;       /* blue 600, the logo's "C" */
-  --brand-hover: #1d4ed8; /* blue 700 */
-  --link: #60a5fa;        /* blue 400: the brand blue is too dark for small text on slate */
+  /* Studio shell: header and footer only */
+  --studio-bg: #0f172a;       /* slate 900, the background the logos are drawn for */
+  --studio-deep: #020617;     /* slate 950 */
+  --studio-text: #e2e8f0;     /* slate 200 */
+  --studio-soft: #94a3b8;     /* slate 400 */
+  --studio-blue: #2563eb;     /* blue 600, the logo's "C" */
+  --studio-link: #60a5fa;     /* blue 400, readable on slate */
+  --studio-line: rgb(148 163 184 / 0.18);
 
   /* Junk Flight */
-  --jf-blue: #2f86f6;
-  --jf-blue-ink: #1d62c6;
-  --jf-navy: #16356a;
-  --jf-cream: #fff4d6;
-  --jf-sky: #eaf3ff;
+  --ocean: #2f86f6;           /* the game's accent */
+  --ocean-lip: #1d62c6;       /* button lip; also links on light colors */
+  --navy: #16356a;
+  --navy-soft: #3f5b88;
+  --cream: #fff8e8;
+  --cream-edge: #f1e2bf;
+  --sky-top: #8cc4ff;
+  --sky-mid: #cfe6ff;
+  --sky-low: #edf6ff;
 
   --font: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-round: ui-rounded, "SF Pro Rounded", "Arial Rounded MT Bold", system-ui, -apple-system, sans-serif;
 
   --gutter: 1rem;
   --max: 70rem;
+  --header-h: 3.5rem;
+  --card-shadow: 0 4px 0 rgb(22 53 106 / 0.12), 0 10px 20px rgb(22 53 106 / 0.08);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 *,
@@ -44,8 +51,10 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background: var(--bg);
-  color: var(--text);
+  background:
+    linear-gradient(180deg, var(--sky-top) 0, var(--sky-mid) 24rem, var(--sky-low) 48rem) no-repeat,
+    var(--sky-low);
+  color: var(--navy);
   font: 1.0625rem/1.6 var(--font);
 }
 
@@ -60,7 +69,7 @@ img {
 }
 
 a {
-  color: var(--link);
+  color: var(--ocean-lip);
   text-underline-offset: 0.18em;
   text-decoration-thickness: 0.08em;
 }
@@ -70,7 +79,7 @@ a:hover {
 }
 
 :focus-visible {
-  outline: 3px solid var(--link);
+  outline: 3px solid var(--navy);
   outline-offset: 3px;
   border-radius: 4px;
 }
@@ -82,14 +91,26 @@ a:hover {
   padding-inline: var(--gutter);
 }
 
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 .skip-link {
   position: absolute;
   left: var(--gutter);
   top: -4rem;
   z-index: 10;
   padding: 0.6rem 1rem;
-  background: var(--text);
-  color: var(--bg);
+  background: var(--studio-text);
+  color: var(--studio-bg);
   font-weight: 700;
   border-radius: 0 0 8px 8px;
 }
@@ -98,11 +119,21 @@ a:hover {
   top: 0;
 }
 
-/* Header ------------------------------------------------------------- */
+/* Header and footer: the studio shell -------------------------------- */
+
+.site-header,
+.site-footer {
+  color: var(--studio-text);
+}
+
+.site-header :focus-visible,
+.site-footer :focus-visible {
+  outline-color: var(--studio-link);
+}
 
 .site-header {
-  background: var(--bg);
-  border-bottom: 1px solid var(--line);
+  background: var(--studio-bg);
+  box-shadow: inset 0 -1px 0 var(--studio-line); /* inside the height, so the first screen sums exactly */
 }
 
 .site-header .wrap {
@@ -110,7 +141,7 @@ a:hover {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  min-height: 4rem;
+  height: var(--header-h);
 }
 
 .site-logo {
@@ -121,7 +152,7 @@ a:hover {
 
 .site-logo img {
   width: auto;
-  height: 2.5rem;
+  height: 2.2rem;
 }
 
 .site-nav ul {
@@ -133,24 +164,22 @@ a:hover {
 }
 
 .site-nav a {
-  color: var(--text);
+  color: var(--studio-text);
   font-weight: 600;
   text-decoration: none;
 }
 
 .site-nav a:hover,
 .site-nav a[aria-current="page"] {
-  color: var(--link);
+  color: var(--studio-link);
   text-decoration: underline;
 }
 
-/* Footer ------------------------------------------------------------- */
-
 .site-footer {
-  margin-top: 3rem;
+  margin-top: auto; /* short pages: the footer sits at the bottom */
   padding-block: 2rem 2.5rem;
-  background: var(--bg-deep);
-  border-top: 4px solid var(--brand);
+  background: var(--studio-deep);
+  border-top: 4px solid var(--studio-blue);
   font-size: 0.95rem;
 }
 
@@ -173,291 +202,333 @@ a:hover {
 }
 
 .footer-links a {
+  color: var(--studio-link);
   font-weight: 600;
   overflow-wrap: anywhere;
 }
 
 .copyright {
   margin: 0;
-  color: var(--text-soft);
+  color: var(--studio-soft);
 }
 
-/* Studio button ------------------------------------------------------ */
+/* Toy button: presses in like the game's buttons ---------------------- */
 
 .btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.25rem;
-  padding: 0.7rem 1.4rem;
-  border-radius: 14px;
-  font-weight: 700;
-  font-size: 1.1rem;
-  line-height: 1.2;
-  text-align: center;
-  text-decoration: none;
-  overflow-wrap: anywhere;
-}
-
-.btn-studio {
-  background: var(--brand);
-  color: #fff;
-}
-
-.btn-studio:hover {
-  background: var(--brand-hover);
-}
-
-/* Junk Flight -------------------------------------------------------- */
-
-.jf {
-  position: relative;
-  overflow: hidden;
-  background:
-    radial-gradient(9rem 4rem at 88% 6%, rgb(255 255 255 / 0.9), transparent 70%),
-    radial-gradient(12rem 5rem at 6% 62%, rgb(255 255 255 / 0.75), transparent 70%),
-    radial-gradient(10rem 4rem at 94% 82%, rgb(255 255 255 / 0.7), transparent 70%),
-    linear-gradient(180deg, #d9eaff 0%, var(--jf-sky) 45%, #f4f8ff 100%);
-  color: var(--jf-navy);
-}
-
-.jf a:not([class]) {
-  color: var(--jf-blue-ink);
-}
-
-.jf :focus-visible {
-  outline-color: var(--jf-navy);
-}
-
-.jf-art {
-  margin: 0;
-}
-
-.jf-art img {
-  width: 100%;
-  height: clamp(13rem, 40vh, 28rem);
-  height: clamp(13rem, 40svh, 28rem);
-  object-fit: cover;
-  object-position: 50% 40%;
-}
-
-.jf-intro {
-  position: relative;
-  margin-top: -1.5rem;
-  padding: 1.6rem var(--gutter) 0;
-  background: var(--jf-sky);
-  border-radius: 1.5rem 1.5rem 0 0;
-}
-
-.jf-eyebrow {
-  margin: 0 0 0.6rem;
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  color: var(--jf-blue-ink);
-}
-
-.jf-title-row {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-}
-
-.jf-icon {
-  width: 4rem;
-  height: 4rem;
-  flex-shrink: 0;
-  border-radius: 22%;
-  border: 3px solid var(--jf-cream);
-  box-shadow: 0 5px 0 var(--jf-navy);
-  transform: rotate(6deg);
-}
-
-.jf-title {
-  display: inline-block;
-  margin: 0;
-  padding: 0.18em 0.42em 0.26em;
-  background: var(--jf-blue);
-  color: var(--jf-cream);
-  font: 900 clamp(1.8rem, 8.6vw, 3.6rem)/1 var(--font-round);
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-  white-space: nowrap;
-  text-shadow:
-    0 0.06em 0 var(--jf-navy),
-    0.03em 0.1em 0 var(--jf-navy),
-    0 0.12em 0 var(--jf-navy);
-  border-radius: 0.35em;
-  box-shadow: 0 6px 0 var(--jf-navy);
-  transform: rotate(-3deg);
-}
-
-.jf-pitch {
-  margin: 1.4rem 0 1.1rem;
-  font: 800 1.3rem/1.3 var(--font-round);
-  color: var(--jf-navy);
-}
-
-.jf-cta {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 0.8rem 1.2rem;
-}
-
-.btn-jf {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  min-height: 3.4rem;
+  min-height: 3.5rem;
   padding: 0.7rem 1.5rem;
-  background: var(--jf-blue);
+  background: var(--ocean);
   color: #fff;
   font: 800 1.2rem/1.2 var(--font-round); /* large text: white on #2F86F6 needs 3:1 */
   text-align: center;
   text-decoration: none;
+  overflow-wrap: anywhere;
   border-radius: 1rem;
-  box-shadow: 0 5px 0 var(--jf-navy);
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.3),
+    0 5px 0 var(--ocean-lip),
+    0 9px 16px rgb(22 53 106 / 0.18);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
 }
 
-.btn-jf:hover {
-  transform: translateY(-2px) rotate(-1deg);
-  box-shadow: 0 7px 0 var(--jf-navy);
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.3),
+    0 6px 0 var(--ocean-lip),
+    0 11px 18px rgb(22 53 106 / 0.2);
 }
 
-.btn-jf:active {
-  transform: translateY(3px);
-  box-shadow: 0 2px 0 var(--jf-navy);
+.btn:active {
+  transform: translateY(4px);
+  box-shadow:
+    inset 0 2px 0 rgb(255 255 255 / 0.3),
+    0 1px 0 var(--ocean-lip),
+    0 3px 6px rgb(22 53 106 / 0.18);
 }
 
-.jf-note {
-  margin: 0;
-  font-size: 0.95rem;
-  font-weight: 600;
-}
+/* Front page: first screen ------------------------------------------- */
 
-.jf-note strong {
-  display: inline-block;
-  margin-right: 0.3rem;
-  padding: 0.1rem 0.55rem;
-  background: var(--jf-navy);
-  color: var(--jf-cream);
-  border-radius: 999px;
-  font-size: 0.85rem;
-}
-
-.jf-desc {
-  max-width: 36rem;
-  margin: 1.6rem 0 1rem;
-}
-
-.jf-facts {
+.hero {
   display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.jf-facts li {
-  padding: 0.3rem 0.8rem;
-  background: #fff;
-  border: 2px solid #c9defb;
-  border-radius: 999px;
-  font-size: 0.95rem;
-  font-weight: 600;
-}
-
-.jf-facts li:nth-child(odd) {
-  transform: rotate(-1.2deg);
-}
-
-.jf-facts li:nth-child(even) {
-  transform: rotate(1deg);
-}
-
-.jf-shots {
-  padding: 2.5rem var(--gutter) 2.75rem;
-}
-
-.jf-shots h2 {
-  margin: 0 0 1.25rem;
-  font: 900 1.6rem/1.2 var(--font-round);
-  color: var(--jf-navy);
-}
-
-.jf-gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.5rem 1rem;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.jf-gallery figure {
-  margin: 0;
-}
-
-.jf-gallery img {
-  width: 100%;
-  aspect-ratio: 1320 / 2868;
-  object-fit: cover;
-  border: 5px solid var(--jf-navy);
-  border-radius: 1.4rem;
-  background: var(--jf-navy);
-  box-shadow: 0 10px 24px rgb(22 53 106 / 0.18);
-}
-
-.jf-gallery li:nth-child(odd) img {
-  transform: rotate(-1.5deg);
-}
-
-.jf-gallery li:nth-child(even) img {
-  transform: rotate(1.5deg);
-}
-
-.jf-gallery figcaption {
-  margin-top: 0.7rem;
-  font: 800 1rem/1.3 var(--font-round);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - var(--header-h));
+  min-height: calc(100svh - var(--header-h));
+  padding: 1rem var(--gutter) 1.5rem;
   text-align: center;
 }
 
-/* Text pages (privacy, support, 404) --------------------------------- */
+.hero-name {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.app-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 22%;
+  box-shadow: 0 3px 0 rgb(22 53 106 / 0.25);
+}
+
+.hero h1 {
+  margin: 0;
+  font: 900 1.4rem/1 var(--font-round);
+  color: var(--navy);
+}
+
+.headline {
+  margin: 0.6rem 0 0;
+  max-width: 13em;
+  font: 900 clamp(2rem, 9vw, 3.6rem)/1.02 var(--font-round);
+  color: var(--navy);
+  text-wrap: balance;
+  text-shadow: 0 2px 0 rgb(255 255 255 / 0.55);
+}
+
+.pitch {
+  margin: 0.55rem 0 0;
+  max-width: 24rem;
+  font: 700 1.05rem/1.35 var(--font-round);
+  color: var(--navy-soft);
+  text-wrap: balance;
+}
+
+.hero-art {
+  flex: 1 1 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 11rem;
+  max-height: 40rem;
+  margin: 1rem 0 1.25rem;
+  container-type: size;
+}
+
+/* The frame fills the space left on the first screen, between 1.1:1 wide
+   and 1:1.2 tall. The art is cropped from 25.5% of its height, below its
+   own title and just above the raccoon's goggles, so any frame in that
+   range shows the raccoon and the whole vessel. */
+.hero-art-frame {
+  width: 100%;
+  height: 100%;
+  width: min(100cqw, 110cqh);
+  height: min(100cqh, 120cqw);
+  overflow: hidden;
+  border: 5px solid var(--cream);
+  border-radius: 1.6rem;
+  background: var(--ocean);
+  box-shadow: 0 5px 0 rgb(22 53 106 / 0.14), 0 14px 28px rgb(22 53 106 / 0.18);
+}
+
+.hero-art img {
+  width: 100%;
+  margin-top: -55.3%; /* 25.5% of the art's height (2167 / 1000 × 25.5%) */
+}
+
+.hero .btn {
+  width: min(100%, 22rem);
+}
+
+/* Front page: the loop ----------------------------------------------- */
+
+.loop {
+  padding: 2.25rem var(--gutter) 2.75rem;
+}
+
+.beats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  max-width: 54rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.beat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.45rem 0.8rem;
+  background: var(--cream);
+  border: 2px solid var(--cream-edge);
+  border-radius: 1.2rem;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+}
+
+.beat h3 {
+  margin: 0;
+  padding: 0.15rem 0.7rem 0.2rem;
+  background: var(--ocean);
+  color: #fff;
+  font: 900 1.2rem/1.2 var(--font-round); /* large text, as on the button */
+  border-radius: 999px;
+  box-shadow: 0 3px 0 var(--ocean-lip);
+}
+
+.beat img {
+  width: 100%;
+  aspect-ratio: 660 / 1434;
+  object-fit: cover;
+  border-radius: 0.85rem;
+  background: var(--navy);
+}
+
+.beat p {
+  margin: 0;
+  font: 700 0.875rem/1.3 var(--font-round);
+  text-wrap: balance;
+}
+
+/* Front page: four worlds -------------------------------------------- */
+
+.world {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem var(--gutter) 3rem;
+  color: var(--ink);
+  text-align: center;
+}
+
+.world h3 {
+  width: min(92%, 26rem);
+  margin: 0;
+}
+
+.world h3 img {
+  width: 100%;
+}
+
+.world p {
+  max-width: 21rem;
+  margin: 0.75rem 0 1.5rem;
+  font: 800 1.2rem/1.3 var(--font-round);
+  text-wrap: balance;
+}
+
+.world-shot {
+  width: min(62%, 16rem);
+  aspect-ratio: 660 / 1434;
+  object-fit: cover;
+  border: 5px solid var(--frame);
+  border-radius: 1.5rem;
+  background: var(--frame);
+  box-shadow: 0 5px 0 rgb(0 0 0 / 0.16), 0 14px 28px rgb(0 0 0 / 0.2);
+  transform: rotate(2deg);
+}
+
+.world:nth-of-type(even) .world-shot {
+  transform: rotate(-2deg);
+}
+
+/* Scrapyard: a fresh morning */
+.world-scrapyard {
+  --ink: #4a2a17;
+  --frame: #6e3e20;
+  background: linear-gradient(180deg, #cdeaff 0%, #e3f3d0 60%, #c9e5a0 100%);
+}
+
+/* Sunset Coast: a golden sunset */
+.world-sunset {
+  --ink: #4b1d3f;
+  --frame: #4b1d3f;
+  background: linear-gradient(180deg, #ffd47c 0%, #ffa679 55%, #ff8192 100%);
+}
+
+/* Rooftop Run: a lavender dusk */
+.world-rooftop {
+  --ink: #fff;
+  --frame: #262f45;
+  background: linear-gradient(180deg, #7e6ed0 0%, #5a4aa6 50%, #2c285a 100%);
+}
+
+.world-rooftop p {
+  text-shadow: 0 2px 0 rgb(38 47 69 / 0.45);
+}
+
+/* Kaboom Castle: a stormy night lit by torches */
+.world-castle {
+  --ink: #f8e8c6;
+  --frame: #9e2a2b;
+  background:
+    radial-gradient(14rem 14rem at 8% 38%, rgb(255 160 60 / 0.28), transparent 70%),
+    radial-gradient(14rem 14rem at 92% 72%, rgb(255 160 60 / 0.22), transparent 70%),
+    linear-gradient(180deg, #1b1f3d 0%, #262a52 60%, #33284a 100%);
+}
+
+/* Front page: facts -------------------------------------------------- */
+
+.facts-band {
+  padding: 2.5rem var(--gutter) 3rem;
+  background: var(--sky-low);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem;
+  max-width: 46rem;
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.facts li {
+  padding: 0.45rem 0.95rem;
+  background: var(--cream);
+  border: 2px solid var(--cream-edge);
+  border-radius: 1rem;
+  box-shadow: 0 3px 0 rgb(22 53 106 / 0.12);
+  font: 700 1rem/1.35 var(--font-round);
+  text-align: center;
+}
+
+/* Text pages (privacy, support, 404): a cream card on the sky --------- */
 
 .page {
-  max-width: 42rem;
-  padding-block: 2.5rem 1rem;
+  flex: none;
+  width: calc(100% - 2 * var(--gutter));
+  max-width: 44rem;
+  margin: 1.5rem auto 2.5rem;
+  padding: 1.75rem 1.25rem 1.25rem;
+  background: var(--cream);
+  border: 2px solid var(--cream-edge);
+  border-radius: 1.6rem;
+  box-shadow: var(--card-shadow);
 }
 
 .page-eyebrow {
   margin: 0 0 0.4rem;
-  font-size: 0.85rem;
-  font-weight: 700;
+  font: 800 0.85rem/1.4 var(--font-round);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--link);
+  color: var(--ocean-lip);
 }
 
 .page h1 {
   margin: 0 0 0.75rem;
-  font-size: clamp(2rem, 7vw, 2.75rem);
-  line-height: 1.15;
+  font: 900 clamp(2rem, 7vw, 2.75rem)/1.15 var(--font-round);
 }
 
 .page h2 {
   margin: 2.25rem 0 0.5rem;
-  font-size: 1.35rem;
-  line-height: 1.3;
+  font: 900 1.35rem/1.3 var(--font-round);
 }
 
 .page h3 {
   margin: 1.5rem 0 0.35rem;
-  font-size: 1.1rem;
+  font: 800 1.1rem/1.35 var(--font-round);
 }
 
 .page p,
@@ -471,108 +542,130 @@ a:hover {
 
 .lede {
   font-size: 1.2rem;
-  color: var(--text-soft);
+  color: var(--navy-soft);
 }
 
 .updated {
-  color: var(--text-soft);
+  color: var(--navy-soft);
   font-size: 0.95rem;
 }
 
 .contact-card {
   margin: 1.75rem 0 0.5rem;
   padding: 1.4rem;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-left: 6px solid var(--brand);
-  border-radius: 14px;
+  background: #fff;
+  border: 2px solid #cfe2fb;
+  border-radius: 1.2rem;
 }
 
 .contact-card p:last-child {
   margin-bottom: 0;
 }
 
-/* Wider screens ------------------------------------------------------ */
+/* Wider screens: the same page, wider -------------------------------- */
 
 @media (min-width: 56rem) {
   :root {
     --gutter: 2rem;
-  }
-
-  .site-header .wrap {
-    min-height: 5rem;
+    --header-h: 4.5rem;
   }
 
   .site-logo img {
-    height: 3rem;
+    height: 2.75rem;
   }
 
   .site-nav ul {
     gap: 1.75rem;
   }
 
-  .jf {
-    width: calc(100% - 2 * var(--gutter));
-    max-width: calc(var(--max) - 2 * var(--gutter));
-    margin: 2.5rem auto 0;
+  .hero {
+    padding-block: 1.5rem 2rem;
+  }
+
+  .app-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .headline {
+    max-width: none;
+  }
+
+  .pitch {
+    max-width: none;
+    font-size: 1.3rem;
+  }
+
+  .hero-art {
+    margin-block: 1.5rem 1.75rem;
+  }
+
+  .hero-art-frame {
+    border-width: 7px;
     border-radius: 2rem;
-    box-shadow: 0 0 0 1px rgb(22 53 106 / 0.06);
   }
 
-  .jf-hero {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    align-items: center;
-    gap: 3.5rem;
-    padding: 3.5rem 4rem 2rem;
+  .loop {
+    padding-block: 3.5rem 4rem;
   }
 
-  .jf-art {
-    order: 2;
+  .beats {
+    gap: 1.75rem;
   }
 
-  .jf-art img {
-    width: auto;
-    height: min(38rem, 76vh);
-    aspect-ratio: 1000 / 2167;
-    object-position: 50% 50%;
-    border: 10px solid var(--jf-navy);
-    border-radius: 2.6rem;
-    box-shadow: 0 22px 44px rgb(22 53 106 / 0.28);
-    transform: rotate(3deg);
+  .beat {
+    gap: 0.8rem;
+    padding: 1rem 1rem 1.25rem;
+    border-radius: 1.6rem;
   }
 
-  .jf-intro {
-    margin: 0;
-    padding: 0;
-    background: none;
+  .beat h3 {
+    font-size: 1.5rem;
   }
 
-  .jf-icon {
-    width: 5.5rem;
-    height: 5.5rem;
+  .beat img {
+    border-radius: 1.2rem;
   }
 
-  .jf-pitch {
-    font-size: 1.6rem;
-    max-width: 30rem;
-  }
-
-  .jf-desc {
+  .beat p {
     font-size: 1.1rem;
   }
 
-  .jf-shots {
-    padding: 2rem 4rem 4rem;
+  .world {
+    padding-block: 3.5rem 4.5rem;
   }
 
-  .jf-gallery {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 2rem;
+  .world h3 {
+    width: 30rem;
   }
 
-  .jf-gallery li:nth-child(even) {
-    margin-top: 2rem;
+  .world p {
+    max-width: 30rem;
+    margin-block: 1rem 2rem;
+    font-size: 1.5rem;
+  }
+
+  .world-shot {
+    width: 17rem;
+    border-width: 7px;
+    border-radius: 2rem;
+  }
+
+  .facts-band {
+    padding-block: 3.5rem 4rem;
+  }
+
+  .facts li {
+    font-size: 1.1rem;
+  }
+
+  .page {
+    margin-block: 2.5rem 3.5rem;
+    padding: 2.5rem 3rem 2rem;
   }
 
   .site-footer .wrap {
@@ -591,12 +684,12 @@ a:hover {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn-jf {
+  .btn {
     transition: none;
   }
 
-  .btn-jf:hover,
-  .btn-jf:active {
+  .btn:hover,
+  .btn:active {
     transform: none;
   }
 }
