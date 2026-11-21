@@ -7,6 +7,7 @@ index.html            Home: Junk Flight hero, screenshots
 privacy/index.html    Privacy policy (Junk Flight + this site)
 privacy/draft-1.0.html  Unlinked draft for Junk Flight 1.0 with ads; replaces index.html at release
 support/index.html    Contact and FAQ
+app-ads.txt           AdMob seller line for Junk Flight (must stay at the site root)
 404.html              Not-found page (GitHub Pages serves it automatically)
 assets/css/site.css   The only stylesheet
 assets/brand/         Studio logo (stacked) and header lockup (SVG)
