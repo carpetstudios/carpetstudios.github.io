@@ -27,8 +27,27 @@
   <meta name="twitter:image" content="https://carpetstudios.github.io/assets/img/og-image.jpg">
   <meta name="twitter:image:alt" content="The Carpet Studios logo beside Junk Flight key art of a raccoon pilot flying a winged portable toilet.">
 </head>
-<body>
+<body class="home">
   <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- The sky behind the page: it passes from morning to a stormy night as
+       you scroll (CSS scroll timelines in site.css; no script). With Reduce
+       Motion, or where scroll timelines aren't supported, it stays hidden and
+       the page shows a still sky instead. -->
+  <div class="sky" aria-hidden="true">
+    <div class="sky-layer sky-sunset"></div>
+    <div class="sky-layer sky-dusk"></div>
+    <div class="sky-layer sky-night"></div>
+  </div>
+  <div class="sky sky-bodies" aria-hidden="true">
+    <div class="stars"></div>
+    <div class="cloud cloud-1"></div>
+    <div class="cloud cloud-2"></div>
+    <div class="cloud cloud-3"></div>
+    <div class="cloud cloud-storm cloud-4"></div>
+    <div class="cloud cloud-storm cloud-5"></div>
+    <div class="sun"></div>
+  </div>
 
   <header class="site-header">
     <div class="wrap">
@@ -46,101 +65,101 @@
 
   <main id="main">
     <section class="hero" aria-labelledby="jf-title">
-      <div class="hero-name">
-        <img class="app-icon" src="assets/img/junk-flight-icon.webp" width="192" height="192" alt="">
-        <h1 id="jf-title">Junk Flight</h1>
-      </div>
-      <p class="headline">Fly anything, crash everything</p>
-      <p class="pitch">Push a piece of junk off a cliff and fly it as far as you can.</p>
-
-      <figure class="hero-art">
-        <div class="hero-art-frame">
-          <img
-            src="assets/img/junk-flight-key-art-600.webp"
-            srcset="assets/img/junk-flight-key-art-600.webp 600w, assets/img/junk-flight-key-art-1000.webp 1000w"
-            sizes="(min-width: 40rem) 30rem, 100vw"
-            width="1000" height="2167"
-            fetchpriority="high"
-            alt="Junk Flight key art: a raccoon pilot in goggles and a red scarf rides a blue portable toilet fitted with biplane wings, a shark-faced rocket, and caster wheels, flying over a heap of junk.">
+      <div class="hero-text">
+        <div class="hero-name">
+          <img class="app-icon" src="assets/img/junk-flight-icon.webp" width="192" height="192" alt="">
+          <h1 id="jf-title">Junk Flight</h1>
         </div>
-      </figure>
+        <p class="headline">Fly anything, crash everything</p>
+        <p class="pitch">Push a piece of junk off a cliff and fly it as far as you can.</p>
+        <a class="btn" href="https://testflight.apple.com/join/bAjfNBZ2">Join the TestFlight beta</a>
+      </div>
 
-      <a class="btn" href="https://testflight.apple.com/join/bAjfNBZ2">Join the TestFlight beta</a>
-    </section>
-
-    <section class="loop" aria-labelledby="loop-title">
-      <h2 class="visually-hidden" id="loop-title">How it plays</h2>
-      <ol class="beats">
-        <li class="beat">
-          <h3>Fly</h3>
-          <img
-            src="assets/img/jf-launch.webp"
-            width="660" height="1434" loading="lazy" decoding="async"
-            alt="The raccoon pilot in goggles blasts off in a shopping cart with tank treads and rocket flames, past a giant coin and a rock wall in the Scrapyard.">
-          <p>Fly your junk as far as it goes.</p>
-        </li>
-        <li class="beat">
-          <h3>Crash</h3>
-          <img
-            src="assets/img/jf-crash.webp"
-            width="660" height="1434" loading="lazy" decoding="async"
-            alt="A close-up of the wide-eyed raccoon pilot tumbling through the air beside sandstone rock pillars, with blurred gold coins flying.">
-          <p>Tumble, bounce and grab the coins.</p>
-        </li>
-        <li class="beat">
-          <h3>Upgrade</h3>
-          <img
-            src="assets/img/jf-garage.webp"
-            width="660" height="1434" loading="lazy" decoding="async"
-            alt="The garage: a list of upgrades for the Cardboard Box, such as Stone Ramp, Plywood Wings, and Firework Rockets, with coin prices and a preview of the vehicle.">
-          <p>Bolt on better parts and launch again.</p>
-        </li>
-      </ol>
+      <div class="hero-phones">
+        <figure class="hero-phone hero-phone-fly">
+          <figcaption class="pill">Fly</figcaption>
+          <div class="phone">
+            <img
+              src="assets/img/jf-launch.webp"
+              width="660" height="1434" decoding="async"
+              alt="The raccoon pilot in goggles blasts off in a shopping cart with tank treads and rocket flames, past a giant coin and a rock wall in the Scrapyard.">
+          </div>
+        </figure>
+        <figure class="hero-phone hero-phone-crash">
+          <figcaption class="pill">Crash</figcaption>
+          <div class="phone">
+            <img
+              src="assets/img/jf-crash.webp"
+              width="660" height="1434" fetchpriority="high"
+              alt="A close-up of the wide-eyed raccoon pilot tumbling through the air beside sandstone rock pillars, with blurred gold coins flying.">
+          </div>
+        </figure>
+        <figure class="hero-phone hero-phone-upgrade">
+          <figcaption class="pill">Upgrade</figcaption>
+          <div class="phone">
+            <img
+              src="assets/img/jf-garage.webp"
+              width="660" height="1434" decoding="async"
+              alt="The garage: a list of upgrades for the Cardboard Box, such as Stone Ramp, Plywood Wings, and Firework Rockets, with coin prices and a preview of the vehicle.">
+          </div>
+        </figure>
+      </div>
     </section>
 
     <section class="worlds" aria-labelledby="worlds-title">
       <h2 class="visually-hidden" id="worlds-title">Four worlds</h2>
+      <div class="worlds-row">
+        <article class="world world-scrapyard">
+          <h3><img src="assets/img/sticker-scrapyard.webp" width="800" height="270" loading="lazy" decoding="async" alt="Scrapyard"></h3>
+          <div class="phone">
+            <img
+              src="assets/img/jf-scrapyard.webp"
+              width="660" height="1434" loading="lazy" decoding="async"
+              alt="The raccoon pilot in a winged shopping cart flies over a green junkyard valley toward a swinging wrecking ball and distant cranes.">
+          </div>
+          <p>Duck the wrecking balls in a junkyard valley.</p>
+        </article>
 
-      <article class="world world-scrapyard">
-        <h3><img src="assets/img/sticker-scrapyard.webp" width="800" height="270" loading="lazy" decoding="async" alt="Scrapyard"></h3>
-        <p>Duck the wrecking balls in a junkyard valley.</p>
-        <img class="world-shot"
-          src="assets/img/jf-scrapyard.webp"
-          width="660" height="1434" loading="lazy" decoding="async"
-          alt="The raccoon pilot in a winged shopping cart flies over a green junkyard valley toward a swinging wrecking ball and distant cranes.">
-      </article>
+        <article class="world world-sunset">
+          <h3><img src="assets/img/sticker-sunset-coast.webp" width="800" height="246" loading="lazy" decoding="async" alt="Sunset Coast"></h3>
+          <div class="phone">
+            <img
+              src="assets/img/jf-boost.webp"
+              width="660" height="1434" loading="lazy" decoding="async"
+              alt="The raccoon pilot flies a tracked cart with rainbow wings through a red-and-white ring at sunset over the Sunset Coast, with coins and balloons around.">
+          </div>
+          <p>Boost through rings over the beach at sunset.</p>
+        </article>
 
-      <article class="world world-sunset">
-        <h3><img src="assets/img/sticker-sunset-coast.webp" width="800" height="246" loading="lazy" decoding="async" alt="Sunset Coast"></h3>
-        <p>Boost through rings over the beach at sunset.</p>
-        <img class="world-shot"
-          src="assets/img/jf-boost.webp"
-          width="660" height="1434" loading="lazy" decoding="async"
-          alt="The raccoon pilot flies a tracked cart with rainbow wings through a red-and-white ring at sunset over the Sunset Coast, with coins and balloons around.">
-      </article>
+        <article class="world world-rooftop">
+          <h3><img src="assets/img/sticker-rooftop-run.webp" width="800" height="292" loading="lazy" decoding="async" alt="Rooftop Run"></h3>
+          <div class="phone">
+            <img
+              src="assets/img/jf-rooftop.webp"
+              width="660" height="1434" loading="lazy" decoding="async"
+              alt="The raccoon pilot in a blue portable toilet soars past purple skyscrapers, a water tower, and a bullet train.">
+          </div>
+          <p>Skim the bullet trains between the towers.</p>
+        </article>
 
-      <article class="world world-rooftop">
-        <h3><img src="assets/img/sticker-rooftop-run.webp" width="800" height="292" loading="lazy" decoding="async" alt="Rooftop Run"></h3>
-        <p>Skim the bullet trains between the towers.</p>
-        <img class="world-shot"
-          src="assets/img/jf-rooftop.webp"
-          width="660" height="1434" loading="lazy" decoding="async"
-          alt="The raccoon pilot in a blue portable toilet soars past purple skyscrapers, a water tower, and a bullet train.">
-      </article>
-
-      <article class="world world-castle">
-        <h3><img src="assets/img/sticker-kaboom-castle.webp" width="800" height="232" loading="lazy" decoding="async" alt="Kaboom Castle"></h3>
-        <p>Thread the castle walls on a stormy night.</p>
-        <img class="world-shot"
-          src="assets/img/jf-castle-b.webp"
-          width="660" height="1434" loading="lazy" decoding="async"
-          alt="The raccoon pilot rides a winged red vending machine along a stone castle wall, under a raised portcullis.">
-      </article>
+        <article class="world world-castle">
+          <h3><img src="assets/img/sticker-kaboom-castle.webp" width="800" height="232" loading="lazy" decoding="async" alt="Kaboom Castle"></h3>
+          <div class="phone">
+            <img
+              src="assets/img/jf-castle-b.webp"
+              width="660" height="1434" loading="lazy" decoding="async"
+              alt="The raccoon pilot rides a winged red vending machine along a stone castle wall, under a raised portcullis.">
+          </div>
+          <p>Thread the castle walls on a stormy night.</p>
+        </article>
+      </div>
     </section>
 
     <section class="facts-band" aria-label="Highlights">
+      <div class="stars" aria-hidden="true"></div>
+      <div class="moon" aria-hidden="true"></div>
       <ul class="facts">
-        <li>Four worlds: Scrapyard, Sunset Coast, Rooftop Run, Kaboom Castle</li>
+        <li>Four worlds</li>
         <li>Upgrades you can see</li>
         <li>Plays offline</li>
         <li>No account needed</li>

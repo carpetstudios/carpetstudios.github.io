@@ -1,4 +1,5 @@
-/* Carpet Studios — shared styles. Phone first; one breakpoint at 56rem.
+/* Carpet Studios — shared styles. Phone first; the shell and text pages
+   have one breakpoint at 56rem, and the front page adds 40rem and 64rem.
    Pages use Junk Flight's look (sky, toy buttons, cream cards, ocean blue).
    The studio's own colors (slate and blue, from its logos) appear only in
    the header and footer. */
@@ -250,17 +251,103 @@ a:hover {
     0 3px 6px rgb(22 53 106 / 0.18);
 }
 
+/* Front page: the day passing ----------------------------------------
+   The sky goes from Scrapyard morning through Sunset Coast and Rooftop Run
+   dusk to the Kaboom Castle night. By default it is a still gradient down
+   the page, with the sun in the hero and the moon by the footer. Where CSS
+   scroll timelines work and Reduce Motion is off, a fixed sky takes over
+   (at the end of this section): its layers fade, the sun arcs and sets, the
+   moon rises, clouds drift and stars come out, all driven by the scroll
+   position and animating only opacity and transforms. */
+
+.home {
+  --sky-morning: linear-gradient(180deg, #6db2ff 0%, #a7d3ff 48%, #e2f0ff 100%);
+  --sky-sunset: linear-gradient(180deg, #f9907f 0%, #ffb57c 48%, #ffdf98 100%);
+  --sky-dusk: linear-gradient(180deg, #37327e 0%, #6656ba 50%, #b08cd4 100%);
+  --sky-night: linear-gradient(180deg, #0d102d 0%, #181c40 55%, #2b2450 100%);
+  --sun-face: radial-gradient(circle at 40% 38%, #fff8d2 0 16%, #ffe36c 44%, #ffc93c 100%);
+  --sun-glow: 0 0 0 0.55rem rgb(255 226 110 / 0.28), 0 0 2.75rem 0.9rem rgb(255 206 84 / 0.42);
+  --sun-size: 4.75rem;
+
+  background:
+    linear-gradient(180deg,
+      #6db2ff 0, #a7d3ff 9%, #dcedff 19%,
+      #ffe09a 29%, #ffbb7e 38%, #f99a86 45%,
+      #b08cd4 53%, #6656ba 62%, #37327e 70%,
+      #1d2045 80%, #0d102d 100%) no-repeat,
+    #0d102d;
+}
+
+/* The fixed sky only shows when it can follow the scroll (see the end of
+   this section). */
+.sky {
+  display: none;
+}
+
+/* Phone frames, drawn in CSS. Sizes are percentages of the frame's width
+   (padding) and of its own box (radius, notch), so a frame scales with the
+   width it is given. */
+.phone {
+  position: relative;
+  width: 100%;
+  padding: 3.6%;
+  background: #141b2d;
+  border-radius: 15% / 7%;
+  box-shadow:
+    inset 0 0 0 2px #3c4a6a,
+    0 4px 0 rgb(13 20 40 / 0.22),
+    0 12px 22px rgb(13 20 40 / 0.2);
+}
+
+.phone::after { /* the Dynamic Island */
+  content: "";
+  position: absolute;
+  top: 3.3%;
+  left: 50%;
+  width: 27%;
+  height: 2.7%;
+  translate: -50% 0;
+  border-radius: 999px;
+  background: #0a0e19;
+}
+
+.phone img {
+  width: 100%;
+  aspect-ratio: 660 / 1434;
+  object-fit: cover;
+  border-radius: 12% / 5.6%;
+  background: #24304a;
+}
+
+/* Small label pill: white on ocean blue needs large text (3:1). */
+.pill {
+  margin: 0;
+  padding: 0.1rem 0.8rem 0.15rem;
+  background: var(--ocean);
+  color: #fff;
+  font: 900 1.2rem/1.25 var(--font-round);
+  border-radius: 999px;
+  box-shadow: inset 0 2px 0 rgb(255 255 255 / 0.3), 0 3px 0 var(--ocean-lip);
+  white-space: nowrap;
+}
+
 /* Front page: first screen ------------------------------------------- */
 
 .hero {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   min-height: calc(100vh - var(--header-h));
   min-height: calc(100svh - var(--header-h));
-  padding: 1rem var(--gutter) 1.5rem;
+  padding: 1.25rem var(--gutter) 1.75rem;
+  overflow-x: clip;
   text-align: center;
+}
+
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .hero-name {
@@ -288,196 +375,210 @@ a:hover {
   font: 900 clamp(2rem, 9vw, 3.6rem)/1.02 var(--font-round);
   color: var(--navy);
   text-wrap: balance;
-  text-shadow: 0 2px 0 rgb(255 255 255 / 0.55);
+  text-shadow: 0 2px 0 rgb(255 255 255 / 0.5);
 }
 
 .pitch {
   margin: 0.55rem 0 0;
   max-width: 24rem;
   font: 700 1.05rem/1.35 var(--font-round);
-  color: var(--navy-soft);
+  color: #2b4675; /* darker than --navy-soft: 4.5:1 on the morning sky */
   text-wrap: balance;
-}
-
-.hero-art {
-  flex: 1 1 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  min-height: 11rem;
-  max-height: 40rem;
-  margin: 1rem 0 1.25rem;
-  container-type: size;
-}
-
-/* The frame fills the space left on the first screen, between 1.1:1 wide
-   and 1:1.2 tall. The art is cropped from 25.5% of its height, below its
-   own title and just above the raccoon's goggles, so any frame in that
-   range shows the raccoon and the whole vessel. */
-.hero-art-frame {
-  width: 100%;
-  height: 100%;
-  width: min(100cqw, 110cqh);
-  height: min(100cqh, 120cqw);
-  overflow: hidden;
-  border: 5px solid var(--cream);
-  border-radius: 1.6rem;
-  background: var(--ocean);
-  box-shadow: 0 5px 0 rgb(22 53 106 / 0.14), 0 14px 28px rgb(22 53 106 / 0.18);
-}
-
-.hero-art img {
-  width: 100%;
-  margin-top: -55.3%; /* 25.5% of the art's height (2167 / 1000 × 25.5%) */
 }
 
 .hero .btn {
   width: min(100%, 22rem);
+  margin-top: 1.1rem;
 }
 
-/* Front page: the loop ----------------------------------------------- */
-
-.loop {
-  padding: 2.25rem var(--gutter) 2.75rem;
+/* Three phones, fanned. The fan sizes itself to the space left on the first
+   screen: --w is the middle phone's width, from the box's width or height,
+   whichever runs out first. */
+.hero-phones {
+  position: relative;
+  flex: 1 0 20rem;
+  width: 100%;
+  max-width: 34rem;
+  margin-top: 1.4rem;
+  container-type: size;
+  isolation: isolate;
 }
 
-.beats {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.6rem;
-  max-width: 54rem;
-  margin: 0 auto;
-  padding: 0;
-  list-style: none;
+.hero-phones::before { /* the still sun, rising behind the phones */
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 1%;
+  left: 70%;
+  width: var(--sun-size);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--sun-face);
+  box-shadow: var(--sun-glow);
 }
 
-.beat {
+.hero-phone {
+  --w: min(46cqw, 42cqh);
+  position: absolute;
+  top: 50%;
+  left: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.5rem;
-  padding: 0.55rem 0.45rem 0.8rem;
-  background: var(--cream);
-  border: 2px solid var(--cream-edge);
-  border-radius: 1.2rem;
-  box-shadow: var(--card-shadow);
-  text-align: center;
-}
-
-.beat h3 {
+  width: var(--w);
   margin: 0;
-  padding: 0.15rem 0.7rem 0.2rem;
-  background: var(--ocean);
-  color: #fff;
-  font: 900 1.2rem/1.2 var(--font-round); /* large text, as on the button */
-  border-radius: 999px;
-  box-shadow: 0 3px 0 var(--ocean-lip);
 }
 
-.beat img {
-  width: 100%;
-  aspect-ratio: 660 / 1434;
-  object-fit: cover;
-  border-radius: 0.85rem;
-  background: var(--navy);
+/* The label sits on the top edge, where each phone of the fan shows. */
+.hero-phone .pill {
+  position: relative;
+  z-index: 1;
+  margin-bottom: -0.7rem;
 }
 
-.beat p {
-  margin: 0;
-  font: 700 0.875rem/1.3 var(--font-round);
-  text-wrap: balance;
+.hero-phone-crash {
+  z-index: 2;
+  translate: -50% -50%;
+  rotate: -2deg;
+}
+
+.hero-phone-fly,
+.hero-phone-upgrade {
+  width: calc(var(--w) * 0.86);
+}
+
+.hero-phone-fly {
+  translate: calc(-50% - var(--w) * 0.56) -43%;
+  rotate: -10deg;
+}
+
+.hero-phone-upgrade {
+  translate: calc(-50% + var(--w) * 0.56) -43%;
+  rotate: 9deg;
+}
+
+/* Side labels lean outward, clear of the middle phone. */
+.hero-phone-fly .pill {
+  translate: -18% 0;
+}
+
+.hero-phone-upgrade .pill {
+  translate: 18% 0;
 }
 
 /* Front page: four worlds -------------------------------------------- */
 
+.worlds {
+  padding: 1.25rem var(--gutter) 3rem;
+}
+
+.worlds-row {
+  display: grid;
+  gap: 1rem;
+  max-width: calc(var(--max) - 2 * var(--gutter));
+  margin: 0 auto;
+}
+
 .world {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 2.5rem var(--gutter) 3rem;
+  gap: 0.75rem;
+  padding: 1rem 1rem 1.25rem;
   color: var(--ink);
   text-align: center;
 }
 
+/* The card's own sky. It sits in a layer below the content and, on a
+   phone, below the moving sun and clouds too, so the day passes across the
+   cards instead of hiding behind them. */
+.world::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: var(--card);
+  border: 3px solid var(--edge, rgb(255 255 255 / 0.5));
+  border-radius: 1.6rem;
+  box-shadow: 0 4px 0 rgb(13 20 40 / 0.14);
+}
+
 .world h3 {
-  width: min(92%, 26rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 5.25rem;
   margin: 0;
 }
 
 .world h3 img {
-  width: 100%;
+  width: auto;
+  max-width: min(100%, 16.5rem);
+  max-height: 100%;
+}
+
+/* On a phone each card is about two thirds of the screen, so the next one
+   peeks in: 13rem is the sticker, line, gaps and padding. */
+.world .phone {
+  width: clamp(7.5rem, (66svh - 13rem) / 2.09, 12rem);
 }
 
 .world p {
-  max-width: 21rem;
-  margin: 0.75rem 0 1.5rem;
-  font: 800 1.2rem/1.3 var(--font-round);
+  max-width: 18rem;
+  margin: 0;
+  font: 800 1.1rem/1.3 var(--font-round);
   text-wrap: balance;
-}
-
-.world-shot {
-  width: min(62%, 16rem);
-  aspect-ratio: 660 / 1434;
-  object-fit: cover;
-  border: 5px solid var(--frame);
-  border-radius: 1.5rem;
-  background: var(--frame);
-  box-shadow: 0 5px 0 rgb(0 0 0 / 0.16), 0 14px 28px rgb(0 0 0 / 0.2);
-  transform: rotate(2deg);
-}
-
-.world:nth-of-type(even) .world-shot {
-  transform: rotate(-2deg);
 }
 
 /* Scrapyard: a fresh morning */
 .world-scrapyard {
   --ink: #4a2a17;
-  --frame: #6e3e20;
-  background: linear-gradient(180deg, #cdeaff 0%, #e3f3d0 60%, #c9e5a0 100%);
+  --card: linear-gradient(180deg, #cdeaff 0%, #e3f3d0 60%, #c9e5a0 100%);
 }
 
 /* Sunset Coast: a golden sunset */
 .world-sunset {
   --ink: #4b1d3f;
-  --frame: #4b1d3f;
-  background: linear-gradient(180deg, #ffd47c 0%, #ffa679 55%, #ff8192 100%);
+  --card: linear-gradient(180deg, #ffd47c 0%, #ffa679 55%, #ff8192 100%);
 }
 
 /* Rooftop Run: a lavender dusk */
 .world-rooftop {
   --ink: #fff;
-  --frame: #262f45;
-  background: linear-gradient(180deg, #7e6ed0 0%, #5a4aa6 50%, #2c285a 100%);
+  --card: linear-gradient(180deg, #7e6ed0 0%, #5a4aa6 50%, #2c285a 100%);
 }
 
-.world-rooftop p {
-  text-shadow: 0 2px 0 rgb(38 47 69 / 0.45);
+.world-rooftop p,
+.world-castle p {
+  text-shadow: 0 2px 0 rgb(20 22 48 / 0.55);
 }
 
 /* Kaboom Castle: a stormy night lit by torches */
 .world-castle {
   --ink: #f8e8c6;
-  --frame: #9e2a2b;
-  background:
-    radial-gradient(14rem 14rem at 8% 38%, rgb(255 160 60 / 0.28), transparent 70%),
-    radial-gradient(14rem 14rem at 92% 72%, rgb(255 160 60 / 0.22), transparent 70%),
+  --edge: rgb(255 214 150 / 0.4);
+  --card:
+    radial-gradient(10rem 10rem at 6% 42%, rgb(255 160 60 / 0.3), transparent 70%),
+    radial-gradient(10rem 10rem at 94% 70%, rgb(255 160 60 / 0.24), transparent 70%),
     linear-gradient(180deg, #1b1f3d 0%, #262a52 60%, #33284a 100%);
 }
 
-/* Front page: facts -------------------------------------------------- */
+/* Front page: facts, under the night sky ----------------------------- */
 
 .facts-band {
-  padding: 2.5rem var(--gutter) 3rem;
-  background: var(--sky-low);
+  position: relative;
+  padding: 7rem var(--gutter) 3rem;
+  overflow: clip; /* the rising moon comes up from behind the footer */
 }
 
 .facts {
+  position: relative;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.6rem;
+  gap: 0.5rem;
   max-width: 46rem;
   margin: 0 auto;
   padding: 0;
@@ -485,13 +586,374 @@ a:hover {
 }
 
 .facts li {
-  padding: 0.45rem 0.95rem;
+  padding: 0.3rem 0.85rem 0.35rem;
   background: var(--cream);
   border: 2px solid var(--cream-edge);
   border-radius: 1rem;
-  box-shadow: 0 3px 0 rgb(22 53 106 / 0.12);
-  font: 700 1rem/1.35 var(--font-round);
+  box-shadow: 0 3px 0 rgb(0 0 0 / 0.25);
+  font: 700 0.9rem/1.35 var(--font-round);
   text-align: center;
+}
+
+.moon {
+  position: absolute;
+  top: 1.5rem;
+  left: 14%; /* opposite the phone's sunset */
+  width: 3.75rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 34% 40%, #efdcae 0 11%, transparent 12%),
+    radial-gradient(circle at 63% 64%, #efdcae 0 9%, transparent 10%),
+    radial-gradient(circle at 62% 28%, #efdcae 0 6%, transparent 7%),
+    radial-gradient(circle at 42% 38%, #fffbe9 0 30%, #fff0c8 100%);
+  box-shadow: 0 0 0 0.5rem rgb(255 243 207 / 0.08), 0 0 2.5rem 0.5rem rgb(255 236 190 / 0.3);
+}
+
+/* Stars: small dots placed by percent, so one pattern fills any box. */
+.stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 6% 14%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 17% 52%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 24% 8%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 31% 33%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 41% 70%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 47% 18%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 56% 44%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 63% 9%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 71% 58%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 79% 26%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 88% 64%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 94% 12%, #fff 0 1.5px, transparent 2px),
+    radial-gradient(circle at 12% 84%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 36% 90%, #fff 0 1px, transparent 1.5px),
+    radial-gradient(circle at 84% 88%, #fff 0 1px, transparent 1.5px);
+  opacity: 0.85;
+}
+
+/* Wider screens ------------------------------------------------------ */
+
+@media (min-width: 40rem) {
+  .worlds-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .world {
+    isolation: isolate; /* side by side, the cards cover the sun */
+  }
+
+  .world .phone {
+    width: min(72%, 13rem);
+  }
+}
+
+@media (min-width: 56rem) {
+  .home {
+    --sun-size: 6.25rem;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: center;
+    column-gap: 2rem;
+    min-height: 0; /* the worlds row peeks in below */
+    max-width: var(--max);
+    margin-inline: auto;
+    padding-block: 1.5rem 2rem;
+    text-align: left;
+  }
+
+  .hero-text {
+    align-items: flex-start;
+  }
+
+  .app-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+
+  .headline {
+    max-width: none;
+    margin-top: 1rem;
+  }
+
+  .pitch {
+    max-width: 26rem;
+    margin-top: 0.85rem;
+    font-size: 1.3rem;
+  }
+
+  .hero .btn {
+    width: auto;
+    margin-top: 1.6rem;
+  }
+
+  .hero-phones {
+    flex: none;
+    height: clamp(26rem, 100svh - var(--header-h) - 7rem, 34rem);
+    max-width: none;
+    margin-top: 0;
+  }
+
+  .hero-phones::before {
+    top: 0;
+    left: 66%;
+  }
+
+  .worlds {
+    padding-block: 1rem 3.5rem;
+  }
+
+  .facts-band {
+    padding-block: 3rem 3.5rem;
+  }
+
+  .moon {
+    top: 1.25rem;
+    left: auto;
+    right: 8%; /* opposite the sunset on the left */
+    width: 4.5rem;
+  }
+
+  .facts li {
+    font-size: 1rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  .worlds-row {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .world h3 {
+    height: 4.75rem;
+  }
+
+  .world p {
+    font-size: 1.05rem;
+  }
+}
+
+/* The day passing, where the sky can follow the scroll --------------- */
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .home {
+      /* Where each part of the day falls, as a share of the scroll. The
+         phone stack is long, so the day lines up with its cards; on wider
+         screens the four worlds share one row. */
+      --sun-range: 0% 76%;
+      --moon-range: 80% 100%;
+      /* On a phone the sun keeps to the open margin right of the world
+         shots: up from behind the hero phones, then down to set. */
+      --sun-x0: 76vw; --sun-y0: 24rem; /* just under the button */
+      --sun-x1: 86vw; --sun-y1: 12vh;
+      --sun-x2: 84vw; --sun-y2: 92vh;
+      --moon-drop: 18rem;
+    }
+
+    /* Two fixed layers: the sky's colors at the back, and the sun, clouds
+       and stars at the front, with the phone's world cards between them. */
+    .sky {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: -3;
+      width: 100%;
+      height: 100lvh;
+      overflow: hidden;
+      pointer-events: none;
+      background: var(--sky-morning);
+    }
+
+    .sky-bodies {
+      z-index: -1;
+      background: none;
+    }
+
+    .sky > *,
+    .moon,
+    .sun::after {
+      animation: fade-in linear both;
+      animation-timeline: scroll(root);
+    }
+
+    .sky-layer {
+      position: absolute;
+      inset: 0;
+    }
+
+    /* Quick fades: blue and orange halfway mixed look grey. */
+    .sky-sunset { background: var(--sky-sunset); animation-range: 24% 36%; }
+    .sky-dusk { background: var(--sky-dusk); animation-range: 50% 62%; }
+    .sky-night { background: var(--sky-night); animation-range: 72% 85%; }
+
+    .sky .stars {
+      bottom: 30%;
+      animation-range: 78% 96%;
+    }
+
+    .facts-band .stars,
+    .hero-phones::before {
+      display: none;
+    }
+
+    .sun {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: var(--sun-size);
+      aspect-ratio: 1;
+      margin: calc(var(--sun-size) / -2) 0 0 calc(var(--sun-size) / -2);
+      border-radius: 50%;
+      background: var(--sun-face);
+      box-shadow: var(--sun-glow);
+      animation-name: sun-x, sun-y;
+      animation-range: var(--sun-range);
+    }
+
+    .sun::after { /* turns orange as it sets */
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: radial-gradient(circle at 40% 38%, #ffe0a8 0 14%, #ffa04c 52%, #ff7438 100%);
+      animation-range: 30% 70%;
+    }
+
+    .cloud {
+      animation-name: cloud-drift;
+      animation-range: 0% 58%;
+    }
+
+    .cloud-storm {
+      animation-name: storm-in;
+      animation-range: 72% 92%;
+    }
+
+    .moon {
+      animation-name: moon-rise;
+      animation-range: var(--moon-range);
+    }
+
+    /* Toy clouds: a flat-bottomed bar with two puffs on top. */
+    .cloud {
+      position: absolute;
+      width: 7.5rem;
+      height: 2.2rem;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: inset 0 -0.45rem 0 rgb(150 190 240 / 0.4);
+    }
+
+    .cloud::before,
+    .cloud::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: inherit;
+    }
+
+    .cloud::before {
+      width: 3.2rem;
+      height: 3.2rem;
+      left: 1.1rem;
+      bottom: 0.85rem;
+    }
+
+    .cloud::after {
+      width: 2.3rem;
+      height: 2.3rem;
+      left: 3.6rem;
+      bottom: 1rem;
+    }
+
+    .cloud-1 { top: 15vh; left: -1.5rem; --drift: 2rem; }
+    .cloud-2 { top: 33vh; right: -2rem; scale: 0.8; --drift: -1.5rem; }
+    .cloud-3 { top: 66vh; left: 8vw; scale: 0.65; --drift: 1rem; }
+
+    .cloud-storm {
+      background: #3a3d68;
+      box-shadow: inset 0 -0.45rem 0 rgb(14 16 40 / 0.45);
+    }
+
+    .cloud-4 { top: 22vh; left: 6vw; scale: 1.2; }
+    .cloud-5 { top: 9vh; right: 4vw; scale: 0.9; }
+
+    @media (min-width: 56rem) {
+      .home {
+        --sun-range: 0% 66%;
+        --moon-range: 56% 100%;
+        --sun-x0: 90vw; --sun-y0: 24vh;
+        --sun-x1: 55vw; --sun-y1: 9vh;
+        --sun-x2: 4vw; --sun-y2: 86vh;
+        --moon-drop: 9rem;
+      }
+
+      .sky-sunset { animation-range: 16% 30%; }
+      .sky-dusk { animation-range: 40% 54%; }
+      .sky-night { animation-range: 62% 78%; }
+      .sky .stars { animation-range: 66% 86%; }
+      .cloud-storm { animation-range: 62% 82%; }
+
+      .cloud-1 { top: 12vh; left: 4vw; }
+      .cloud-2 { top: 20vh; right: 30vw; }
+      .cloud-3 { top: 70vh; left: 40vw; }
+    }
+  }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes sun-x {
+  from { translate: var(--sun-x0) 0; }
+  35% { translate: var(--sun-x1) 0; }
+  to { translate: var(--sun-x2) 0; }
+}
+
+@keyframes sun-y {
+  from {
+    transform: translateY(var(--sun-y0));
+    animation-timing-function: cubic-bezier(0.25, 0.6, 0.45, 1);
+  }
+  35% {
+    transform: translateY(var(--sun-y1));
+    animation-timing-function: cubic-bezier(0.55, 0, 0.75, 0.4);
+  }
+  85% { opacity: 1; }
+  to {
+    transform: translateY(var(--sun-y2));
+    opacity: 0;
+  }
+}
+
+@keyframes cloud-drift {
+  from { transform: translate(0, 0); opacity: 0.92; }
+  70% { opacity: 0.92; }
+  to { transform: translate(var(--drift, 0), -40vh); opacity: 0; }
+}
+
+@keyframes storm-in {
+  from { opacity: 0; transform: translateY(3rem); }
+  to { opacity: 0.9; transform: translateY(0); }
+}
+
+@keyframes moon-rise {
+  from { transform: translateY(var(--moon-drop)); }
+  to { transform: translateY(0); }
 }
 
 /* Text pages (privacy, support, 404): a cream card on the sky --------- */
@@ -576,91 +1038,6 @@ a:hover {
 
   .site-nav ul {
     gap: 1.75rem;
-  }
-
-  .hero {
-    padding-block: 1.5rem 2rem;
-  }
-
-  .app-icon {
-    width: 3.5rem;
-    height: 3.5rem;
-  }
-
-  .hero h1 {
-    font-size: 1.8rem;
-  }
-
-  .headline {
-    max-width: none;
-  }
-
-  .pitch {
-    max-width: none;
-    font-size: 1.3rem;
-  }
-
-  .hero-art {
-    margin-block: 1.5rem 1.75rem;
-  }
-
-  .hero-art-frame {
-    border-width: 7px;
-    border-radius: 2rem;
-  }
-
-  .loop {
-    padding-block: 3.5rem 4rem;
-  }
-
-  .beats {
-    gap: 1.75rem;
-  }
-
-  .beat {
-    gap: 0.8rem;
-    padding: 1rem 1rem 1.25rem;
-    border-radius: 1.6rem;
-  }
-
-  .beat h3 {
-    font-size: 1.5rem;
-  }
-
-  .beat img {
-    border-radius: 1.2rem;
-  }
-
-  .beat p {
-    font-size: 1.1rem;
-  }
-
-  .world {
-    padding-block: 3.5rem 4.5rem;
-  }
-
-  .world h3 {
-    width: 30rem;
-  }
-
-  .world p {
-    max-width: 30rem;
-    margin-block: 1rem 2rem;
-    font-size: 1.5rem;
-  }
-
-  .world-shot {
-    width: 17rem;
-    border-width: 7px;
-    border-radius: 2rem;
-  }
-
-  .facts-band {
-    padding-block: 3.5rem 4rem;
-  }
-
-  .facts li {
-    font-size: 1.1rem;
   }
 
   .page {
